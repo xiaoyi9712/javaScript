@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>what do you want?</title>
+</head>
+    <style>
+    </style>
+<body>
+    <div id="app">
+        <p>请输入你想做的事情</p>
+        <input type="text"@keyup.enter="fn"v-model="msg">
+        <ul>
+            <li v-for="(item,index) in arr">
+                {{item}}
+                <button @click="remove(index)">删除</button>
+            </li>
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+               msg:"",
+               arr:[],
+            },
+            methods:{
+                fn(){
+                    if(this.msg){
+                        this.arr.push(this.msg);
+                        this.msg = "";
+                    };return;
+                },
+                remove(index){
+                    this.arr.splice(index,1);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

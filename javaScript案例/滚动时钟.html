@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            width:800px;
+            height:80px;
+            border:1px solid #ccc;
+            margin:50px auto;
+            padding:20px;
+            user-select: none;
+        }
+        #wrap span{
+            display:inline-block;
+            width:60px;
+            height:80px;
+            background-color:#444;
+            color:#fff;
+            font-size:40px;
+            line-height:80px;
+            text-align: center;
+            margin:0 5px 20px;;
+            border-radius:18px;
+        }
+        #wrap div{
+            float:left;
+            margin:0 10px;
+        }
+        #wrap .end{
+            width:160px;
+            height:200px;
+        }
+        #wrap .hours{
+            margin-left:122px;
+        }
+        #wrap .maohao{
+            font-size:38px;
+            font-weight:bolder;
+            text-align: center;
+            line-height:80px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="hours end">
+            <span class="one">0</span>
+            <span class="one">0</span>
+            <span class="two">0</span>
+            <span class="two">0</span>
+        </div>
+        <div class="maohao">:</div>
+        <div class="minutes end">
+            <span class="one">0</span>
+            <span class="one">0</span>
+            <span class="two">0</span>
+            <span class="two">0</span>
+        </div>
+        <div class="maohao">:</div>
+        <div class="ssss end">
+            <span class="one">0</span>
+            <span class="one">0</span>
+            <span class="two">0</span>
+            <span class="two">0</span>
+        </div>
+    </div>
+    <script>
+        (function(){
+            //获取元素
+            let aOne = [...document.querySelectorAll("#wrap .one")],
+                aTwo = [...document.querySelectorAll("#wrap .two")]
+            ;
+            
+
+            function time (){//获取时间函数
+                let newD = new Date();
+                let HH = newD.getHours(),
+                    MM = newD.getMinutes(),
+                    SS = newD.getSeconds();
+
+                    HH = HH<10?"0"+ HH:""+ HH
+                    MM = MM<10?"0"+ MM:""+ MM
+                    SS = SS<10?"0"+ SS:""+ SS
+                    return [...HH,...MM,...SS]
+                    
+                    
+            }
+                function showtime(){
+                        let T = time();
+                        aOne.forEach((ele,index)=>{
+                            ele.innerHTML = T[index]
+                        });
+
+                        return function(){
+                            let T = time();
+                            aTwo.forEach((ele,index)=>{
+                            ele.innerHTML = T[index]
+                        });
+                        };
+                    }
+            setInterval(showtime,1000)
+        }())
+    </script>
+</body>
+</html>

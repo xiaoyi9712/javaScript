@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            margin:50px auto 0;
+            user-select: none;
+        }
+        table{
+            margin:0 auto 0;
+            border-spacing:0;
+        }
+        #wrap .table .one{
+            background-color:brown;
+            width:1000px;
+            height:50px;
+            color:#fff;
+        }
+        td{
+            width:250px;
+            height:50px;
+            padding:0;
+            text-align:center;
+            border:1px solid #ccc;
+            box-sizing:border-box;
+        }
+        #wrap .table .two .more{
+            text-align:center;
+        }
+        #wrap .table .two tr{
+            width:1000px;
+            height:100px;
+        }
+        #wrap .table .two tr td{
+            width:250px;
+            height:100px;
+            border:1px solid #ccc;
+        }
+        #wrap .table .two .jisuan{
+            display:inline-block;
+            width:110px;
+            height:30px;
+            border:1px solid #ccc;
+        }
+        #wrap .table .two .jisuan .e{
+            width:30px;
+            height:30px;
+            background-color:#ccc;
+            text-align:center;
+            line-height:30px;
+        }
+        #wrap .table .two .jisuan .down{
+            float:left;
+            cursor:pointer;
+        }
+        #wrap .table .two .jisuan .add{
+            float: left;
+            cursor:pointer;
+        }
+        #wrap .table .two .jisuan .fff{
+            float:left;
+            width:50px;
+            height:30px;
+            text-align: center;
+            line-height:30px;
+        }
+        #over{
+            width:1000px;
+            height:50px;
+            background-color:#d94466;
+            text-align:center;
+            margin:20px auto 0;
+        }
+        #over p{
+            display:inline-block;
+            margin:14px 20px;
+            color:#fff;
+        }
+        #over p span{
+            color:black;
+        }
+        img{
+            width:250px;
+            height:100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <table class="table">
+            <thead>
+                <tr class="one">
+                    <td>商品</td>
+                    <td>单价</td>
+                    <td>数量</td>
+                    <td>小计</td>
+                </tr>
+            </thead>
+            <tbody class="two">
+                <tr>
+                    <td>
+                        <img src="./1.jpg" alt="">
+                    </td>
+                    <td>6</td>
+                    <td class="more">
+                        <div class="jisuan">
+                            <div class="e down">-</div>
+                            <div class="fff">0</div>
+                            <div class="e add">+</div>
+                        </div>
+                    </td>
+                    <td class="mmm">0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="./2.jpg" alt="">
+                    </td>
+                    <td>20</td>
+                    <td>
+                        <div class="jisuan">
+                            <div class="e down">-</div>
+                            <div class="fff">0</div>
+                            <div class="e add">+</div>
+                        </div>
+                    </td>
+                    <td class="mmm">0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="./3.jpg" alt="">
+                    </td>
+                    <td>8</td>
+                    <td>
+                        <div class="jisuan">
+                            <div class="e down">-</div>
+                            <div class="fff">0</div>
+                            <div class="e add">+</div>
+                        </div>
+                    </td>
+                    <td class="mmm">0</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="./4.jpg" alt="">
+                    </td>
+                    <td>10</td>
+                    <td>
+                        <div class="jisuan">
+                            <div class="e down">-</div>
+                            <div class="fff">0</div>
+                            <div class="e add">+</div>
+                        </div>
+                    </td>
+                    <td class="mmm">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <div id="over">
+            <p>已选中商品 : <span class="zongshu">0</span> 个</p>
+            <p>合计费用 : <span class="price">0</span> 人民币</p>
+    </div>
+    <script>
+        (function(){
+            //老规矩...获取元素
+            let goods = [
+                {
+                    id:0,
+                    danjia:6,
+                    num:0
+                },
+                {
+                    id:1,
+                    danjia:20,
+                    num:0
+                },
+                {
+                    id:2,
+                    danjia:8,
+                    num:0
+                },
+                {
+                    id:3,
+                    danjia:10,
+                    num:0
+                }
+            ]
+            let aDd = document.querySelectorAll("#wrap .table .two .jisuan .add"),//所有加号被获取
+                aDown = document.querySelectorAll("#wrap .table .two .jisuan .down"),//所有减号被获取
+                aLen = aDd.length,
+                afff = document.querySelectorAll("#wrap .table .two .jisuan .fff"),//数量被获取
+                ttd = document.querySelectorAll("#wrap .table .two .mmm"),//小计被获取
+                all1 = document.querySelector("#over .zongshu"),//种树北湖区
+                all2 = document.querySelector("#over .price")//总价被获取
+            ;
+            for(let i=0;i<aLen;i++){//for循环
+                aDd[i].onclick = function(){//每个加号被点击的时候
+                    goods[i].num++;//给goods[i].num自增1
+                    afff[i].innerHTML = goods[i].num;//数量的innerHTMl=num
+                    ttd[i].innerHTML = goods[i].num * goods[i].danjia;//小计的innerHTML=goods的[i]个的danjia*num
+                    let sum = 0,all = 0;//定义总数为0
+                    for(let i=0;i<aLen;i++){//for循环
+                        sum += goods[i].num;//总数+= 每个num的和
+                        all+= goods[i].num *goods[i].danjia;//总价=每个num*对应的每个danjia
+                    }
+                    all1.innerHTML = sum;//总数=总数
+                    all2.innerHTML = all;//总价=总价
+                }
+                aDown[i].onclick = function(){
+                    goods[i].num--;
+                    if(goods[i].num<0)[goods[i].num=0];
+                    afff[i].innerHTML = goods[i].num;
+                    ttd[i].innerHTML = goods[i].num * goods[i].danjia;
+                    let sum = 0,all = 0;
+                    for(let i=0;i<aLen;i++){
+                        sum += goods[i].num;
+                        all+= goods[i].num *goods[i].danjia;
+                    }
+                    all1.innerHTML = sum;
+                    all2.innerHTML = all;
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

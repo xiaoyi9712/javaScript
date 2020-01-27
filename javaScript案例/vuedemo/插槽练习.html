@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" 
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+    crossorigin="anonymous">
+    <style>
+        #app{
+            width:800px;
+            margin:100px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <hide v-for="(arrs,index) in arr":key="index":type="arrs.type">
+            <h3 slot="title">{{arrs.title}}</h3>
+            <p  slot="content" class="panel-body">{{arrs.content}}</p>
+            <p v-if="arrs.author"slot="author" class="panel-footer">作者:{{arrs.author}}</p>
+        </hide>
+    </div>
+    <template id="hide">
+        <div class="panel" :class='relave'>
+            <div class="panel-heading">
+               <slot name="title"></slot>
+            </div>
+            <div class="panel-body">
+                <slot name="content"></slot>
+            </div>
+            <slot name="author">
+                <p class="panel-footer">作者:默认作者</p>
+            </slot>
+            <div class="panel-footer">
+                <button class="btn btn-success"@click="fn">查看作者</button>
+            </div>
+        </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        let hide={
+            template:"#hide",
+            props:["type"],
+            methods:{
+                fn(){
+                    alert(this.$el.children[2].innerText.slice(3));
+                }
+            },
+            computed:{
+                relave(){
+                    return `panel-`+this.type
+                }
+            }
+        }
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                arr:[
+                    {type:"default",title:"什么是vue",content:"vue文章",author:"小白"},
+                    {type:"danger",title:"什么是react",content:"react文章",author:"小明"},
+                    {type:"success",title:"什么是js",content:"js文章"}
+                ]
+            },
+            components:{
+                hide
+            }
+        })
+    </script>
+</body>
+</html>

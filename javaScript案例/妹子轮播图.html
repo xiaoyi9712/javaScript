@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>额鹅鹅鹅</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp{
+            position:relative;
+            margin:50px auto 0;
+            width:550px;
+            height:700px;
+            user-select: none;
+        }
+        #warp #pic{
+            width:100%;
+            height:700px;
+        }
+        #warp #pic #list{
+            position:relative;
+            width:100%;
+            height:700px;
+        }
+        #warp #pic #list li{
+            display:none;
+            position: absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:700px;
+            border:1px solid #ccc;
+        }
+        #warp #pic #list .block{
+            display:block;
+        }
+        #warp #pic #list li:nth-child(1){
+            background:url("./images/1.jpg")center/cover;
+        }
+        #warp #pic #list li:nth-child(2){
+            background:url("./images/2.jpg")center/cover;
+            background-position:0 0;
+        }
+        #warp #pic #list li:nth-child(3){
+            background:url("./images/3.jpg")center/cover;
+            background-position:0 0;
+        }
+        #warp #pic #list li:nth-child(4){
+            background:url("./images/4.jpg")center/cover;
+            background-position:0 0;
+        }
+        #warp #pic #list li:nth-child(5){
+            background:url("./images/5.jpg")center/cover;
+            background-position:0 0;
+        }
+        #warp .edc{
+            position:absolute;
+            left:0;
+            width:552px;
+            height:30px;
+            background-color:rgba(0, 0, 0, .5);
+            text-align: center;
+            color:#fff;
+            line-height:30px;
+        }
+        #warp .edc1{
+            top:0;
+        }
+        #warp .edc2{
+            bottom:0;
+            transform: translateY(1px);
+        }
+        #btn div{
+            position: absolute;
+            top:50%;
+            width:40px;
+            height:40px;
+            color:#fff;
+            line-height:40px;
+            text-align:center;
+            font-size:20px;
+            background-color:rgba(0, 0, 0, .4);
+            cursor:pointer;
+        }
+        #btn .left{
+            left:0;
+        }
+        #btn .right{
+            right:0;
+        }
+        #m{
+            text-align:center;
+        }
+        #m div{
+            display:inline-block;
+            width:100px;
+            height:55px;
+            text-align:center;
+            line-height:55px;
+            background-color:rgba(0, 0, 0, .5);
+            margin-top:20px;
+        }
+        #m .active{
+            background-color:#f60;
+        }
+        #span{
+            color:#f60;
+        }
+    </style>
+</head>
+<body>
+    <!--先布局-->
+    <div id="warp">
+        <div id="pic">
+            <ul id="list">
+                <li class="block"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+        <!--两个描述edc-->
+        <div class="e">
+            <div class="edc1 edc">妹子<span id="span">1</span>/5</div>
+            <div class="edc2 edc">喵喵猫?</div>
+        </div>
+        <!--两个按钮-->
+        <div id="btn">
+            <div class="left"><</div>
+            <div class="right">></div>
+        </div>
+        <!--模式切换-->
+        <div id="m">
+            <div class="dan active">单边切换</div>
+            <div class="xunhuan">循环模式</div>
+        </div>
+    </div>
+    <script>
+        //先获取元素
+        let aBtn = document.getElementById("btn").getElementsByTagName("div"),//两个按被获取
+            aE = document.querySelectorAll("#warp .e .edc"),//两个描述被获取
+            aList = document.querySelectorAll("#warp #pic #list li"),//所有li被获取
+            aM = document.querySelectorAll("#warp #m div"),//两个模式被获取
+            index = 0,//定义一个变量用来表示是第几张
+            oSpan = document.getElementById("span"),//获取span
+            bool = true,//定义一个布尔值来表示是单边还是循环模式
+            Length = aList.length,//定义一个变量来表示aList的长度
+            speak = [//每个图片对应的文本描述
+                "喵喵喵?",
+                "看见我的大长腿了吗?",
+                "我真漂亮!",
+                "别害羞啊~~",
+                "上啊~~"
+            ]
+
+        //左按钮点击事件
+            aBtn[0].onclick = function(){
+            aList[index].className = "";
+            index--
+            if(index<0){
+                //判断是啥模式
+                index = bool?0:Length-1
+            }
+            oSpan.innerHTML = index+1;
+            aE[1].innerHTML = speak[index];
+            aList[index].className = "block";
+        }
+        //右按钮点击事件
+        aBtn[1].onclick = function(){
+            aList[index].className = "";
+            index++
+            //判断是啥模式
+            if(index>=Length){
+                // if(bool){
+                //     index = Length-1
+                // }
+                // else{
+                //     index = 0
+                // }
+                index = bool?Length-1:0//三目写法..
+            }
+            oSpan.innerHTML = index+1;
+            aE[1].innerHTML = speak[index];
+            aList[index].className = "block";
+        }
+        //单边切换被点击
+        aM[0].onclick = function(){
+            aM[0].className = "active";
+            aM[1].className = "";
+            bool = true;
+        }
+        //循环模式被点击
+        aM[1].onclick = function(){
+            aM[0].className = "";
+            aM[1].className = "active";
+            bool = false;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="wrap">ee</div>
+
+<script>
+    //创建文本节点
+    let text = document.createTextNode("阿飞给"),
+        oDiv = document.createElement("div");
+    let oW = document.querySelector("#wrap");
+    oW.appendChild(text);//在oW后面添加文本
+    oW.appendChild(oDiv);//在oW后面添加div标签
+    oW.insertBefore(oDiv,text)//在什么之前添加什么
+    oW.removeChild(text)//删除啥节点
+    
+</script>
+</body>
+</html>

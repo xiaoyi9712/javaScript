@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小白哦</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+				margin:0;
+			}
+            button{
+                padding:0;
+            }
+			ul{
+				padding-left:0;
+				list-style-type:none;
+			}
+			a{
+				text-decoration:none;
+				color: #222;
+			}
+			input{
+				margin:0;
+				padding:0;
+				outline:none;/*和border一样的写法*/
+				border:none;
+			}
+			.clearfix:after{
+				content:".";
+				font-size:0;
+				height:0;
+				display:block;
+				overflow:hidden;
+				clear:both;
+			}
+            /*样式初始化*/
+        #form{
+            width:500px;
+            margin:20px auto;
+            position: relative;
+            margin:0 auto;
+        }
+        #form>#input{
+            display:block;
+            width:500px;
+            height:200px;
+            margin:50px auto 0;
+            border:1px solid #ccc;
+            text-indent:2em;
+        }
+       #form>#submit{
+           position:absolute;
+           top:180px;
+           right:-47px;
+        }
+        #form #list{
+            margin-top:30px;
+        }
+        #form #list>li{
+            font-size:14px;
+            border-bottom:1px solid #ccc;
+            margin:10px 0;
+            text-indent:2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="form">
+        <input type="text" placeholder="ggg" value="" id="input">
+        <button id="submit">提交哦</button>
+        <ul id="list">
+        </ul>
+    </div>
+    <script>
+        let oInput = document.getElementById("input");
+        let oSubmit = document.getElementById("submit");
+        let oList = document.getElementById("list");
+        oSubmit.onclick = function() {
+            let oValue = oInput.value;
+            oList.innerHTML += "<li>"+oValue+"</li>";
+            oInput.value = "";
+        };
+    </script>
+</body>
+</html>

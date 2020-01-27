@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOL</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp{
+            user-select: none;
+            width:820px;
+            height:382px;
+            margin:20px auto 0;
+        }
+        #k{
+            position:relative;
+            width:100%;
+            height:340px;
+        }
+        #k .list{
+            position:relative;
+            left:-100%;
+            top:0px;
+            width:1000%;
+            height:340px;
+            transition:left .5s;
+        }
+        #k .list>li{
+            float:left;
+            width:10%;
+            height:100%;
+        }
+        #k .list li.active{
+        }
+        #k .play{
+            display:flex;
+            width:100%;
+            height:42px;
+            line-height:42px;
+            text-align:center;
+            font-size:14px;
+            color:#424242;
+        }
+        #k .play li{
+            width:20%;
+            background-color:#e3e2e2;
+        }
+        #k .play li.show{
+            background-color:#f7f6f6;
+            color:#ab8e66;
+            border-bottom:2px solid #ab8e66;
+        }
+        #k .btn{
+            position:absolute;
+            top:47%;
+            width:40px;
+            height:50px;
+            background-color:#f60;
+            text-align:center;
+            font-size:14px;
+            line-height:50px;
+            color:#fff;
+            z-index:10;
+        }
+        #k .left{
+            left:0;
+        }
+        #k .right{
+            right:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="warp">
+        <div id="k">
+            <div class="btn left"><</div>
+            <div class="btn right">></div>
+            <ul class="list">
+                <li><img src="./LOLimages/5.jpg" alt=""></li>
+                <li class="active"><img src="./LOLimages/1.jpg" alt=""></li>
+                <li><img src="./LOLimages/2.jpg" alt=""></li>
+                <li><img src="./LOLimages/3.jpg" alt=""></li>
+                <li><img src="./LOLimages/4.jpg" alt=""></li>
+                <li><img src="./LOLimages/5.jpg" alt=""></li>
+                <li><img src="./LOLimages/1.jpg" alt=""></li>
+            </ul>
+            <ul class="play">
+                <li class="show">终极连击电玩一夏</li>
+                <li>电玩2019:终极连击</li>
+                <li>电玩2019门票</li>
+                <li>7月6日淘汰赛赛程</li>
+                <li>每周限时优惠</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        //获取元素
+        let oWarp = document.getElementById("warp"),
+            aList = document.querySelectorAll("#warp .list>li"),
+            len = aList.length,
+            oList = document.querySelector("#warp .list"),
+            aPlay = document.querySelectorAll("#warp .play>li"),
+            aa = document.querySelectorAll("#warp #k>div"),
+            aKL = aa.length,
+            aLen = aPlay.length,
+            num = 0,
+            xiao = 0;
+
+        //aPlay点击事件//下tab点击事件
+        [...aPlay].forEach(function(selef,index){
+            selef.onclick = function(){
+                aPlay[xiao].classList.remove("show");
+                selef.classList.add("show");
+                //图片动
+                oList.style.left = "-"+(index+1)*100+"%";
+                xiao = index;
+                if(xiao === index)return;
+            }
+            
+
+        })
+        //aa//箭头被点击的时候
+        aa[0].onclick = function(){
+            aPlay[xiao].classList.remove("show");
+            let x = xiao;
+            x--
+            if(x<0){
+                x=aLen-1
+            }
+            aPlay[x].classList.add("show");
+            //图片动
+            oList.style.left = "-"+(x+1)*100+"%";
+            xiao = x;
+        }
+        aa[1].onclick = function(){
+            aPlay[xiao].classList.remove("show");
+            let x = xiao;
+            x++
+            if(x>=aLen){
+                x=0
+            }
+            aPlay[x].classList.add("show");
+            //图片动
+            oList.style.left = "-"+(x+1)*100+"%";
+            xiao = x;
+            
+        }
+        //定时器...
+        let fn = function(){
+            aPlay[num].classList.remove("show");
+            num++
+            if(num>=aLen){
+                num = 0
+            }
+            aPlay[num].classList.add("show");
+            
+            //图片动
+            oList.style.left = "-"+(num+1)*100+"%";
+        }
+        let one = setInterval(fn,2000);
+        clearInterval(one);
+    </script>
+</body>
+</html>

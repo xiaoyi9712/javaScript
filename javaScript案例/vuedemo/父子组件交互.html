@@ -1,0 +1,79 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .black{
+            position:fixed;
+            left:0;
+            top:0;
+            width:100%;
+            height:100%;
+            background-color:rgba(0,0,0,.35);
+        }
+        .white{
+            position: absolute;
+            width:400px;
+            height:260px;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+            background-color:#FFF;
+
+        }
+        .right{
+            float:right;
+        }
+    </style>
+    <body>
+        <div id="app">
+            <button @click="fn">点击弹窗</button>
+            <son v-if="this.isShow"@xxx="close"></son>
+        </div>
+        <template id="son">
+            <div class="black">
+                <div class="white">
+                    <button class="right"@click="fn">点击关闭弹窗</button>
+                </div>
+            </div>
+        </template>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+        <script>
+            let son ={
+                template:"#son",
+                methods:{
+                    fn(){
+                        this.$emit("xxx")
+                    }
+                }
+            }
+            let vm = new Vue({
+                el:"#app",
+                data:{
+                    isShow:false,
+                },
+                methods:{
+                    fn(){
+                        this.isShow = true;
+                    },
+                    close(){
+                        this.isShow = false;
+                    }
+                },
+                components:{
+                    son
+                },
+            })
+        </script>
+    </body>
+    </html>

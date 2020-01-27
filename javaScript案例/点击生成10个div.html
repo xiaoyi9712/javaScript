@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp div{
+            display:inline-block;
+            width:100px;
+            height:100px;
+            background-color:aqua;
+            margin:5px;
+            line-height:100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <button id="btn">点击生成10个div</button>
+    <div id="warp"></div>
+
+
+    <script>
+        let oWarp = document.getElementById("warp"),
+        
+            oBtn = document.getElementById("btn");
+        oBtn.onclick =function (){
+            let a = "";
+            for(let i=0;i<10;i++){
+                a +=`<div>${i+1}</div>`;
+            }
+            oWarp.innerHTML += a;
+            
+        }
+    </script>
+</body>
+</html>

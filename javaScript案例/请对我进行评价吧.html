@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp{
+            width:500px;
+            height:100px;
+            margin:20px auto 0;
+            user-select:none;
+            cursor:pointer;
+        }
+        #warp .title,#warp .list,#warp #text{
+            float: left;
+        }
+        #warp .title{
+            color:brown;
+            line-height:100px;
+        }
+        #warp .list{
+            width:160px;
+            height:32px;
+            margin:34px 20px 0;
+        }
+        #warp .list li{
+            float:left;
+            width:30px;
+            height:30px;
+            border-radius:50%;
+            border:1px solid #ccc;
+        }
+        #warp .list .light{
+            background-color:aqua;
+        }
+        #text{
+            width:100px;
+            height:100px;
+            border:1px solid #ccc;
+            font-size:12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="warp">
+        <p class="title">请对我进行评价吧~</p>
+        <ul class="list">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div id="text">请对我进行评价吧~</div>
+    </div>
+    <script>
+        (function(){
+            //获取元素
+            let aLi = document.querySelectorAll("#warp .list li"),
+                len = aLi.length,
+                oUl = document.querySelector("#warp .list"),
+                index = -1,
+                ooo = ["请对我进行评价","垃圾","很差","还行","棒","超级棒~"],
+                aText = document.querySelector("#text")
+
+            ;
+            //鼠标移入事件移到哪个li,哪个li之前和本身就亮,之后就熄灭
+            for(let i=0;i<len;i++){
+                aLi[i].onmouseenter = function(){
+                    for(let j=0;j<len;j++){
+                        aLi[j].className = j<=i?"light":"";
+                        // if(j<=i){
+                        //     aLi[j].className = "light";
+                        // }
+                        // else{
+                        //     aLi[j].className = "";
+                        // }
+
+                    }
+                    aText.innerHTML = ooo[i+1];
+                    // for(let j=0;j<=i;j++){
+                    //     aLi[j].className = "light"
+                    // }
+                    // for(let j=i+1;j<len;j++){
+                    //     aLi[j].className = "";
+                    // }
+                };
+                //li点击的时候
+                aLi[i].onclick = function(){
+                    index = i
+                }
+                //移出ul的时候
+                oUl.onmouseleave = function(){
+                    for(let i=0;i<len;i++){
+                        aLi[i].className = i<=index?"light":"";
+                    }
+                    aText.innerHTML = ooo[index+1]
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

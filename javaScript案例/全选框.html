@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+            body,p,h1,h2,h3,h4,h5,h6,ul{
+                margin:0;
+            }
+            ul{
+                padding-left:0;
+                list-style-type:none;
+            }
+            a{
+                text-decoration:none;
+                color: #222;
+            }
+            input{
+                margin:0;
+                padding:0;
+                outline:none;/*和border一样的写法*/
+                border:none;
+            }
+            .clearfix:after{
+                content:".";
+                font-size:0;
+                height:0;
+                display:block;
+                overflow:hidden;
+                clear:both;
+            }/*样式初始化*/
+            #wrap{
+                width:430px;
+                height:625px;
+                border:1px solid #999;
+                border-radius:20px;
+                margin:40px auto 0;
+                user-select: none;
+                background-color:aqua;
+            }
+            #wrap .ee{
+                position:relative;
+                width:100%;
+                height:60px;
+                line-height:60px;
+                margin-top:10px;
+                border-radius:10px;
+                border:1px solid #999;
+            }
+            #wrap .ee input{
+                width:16px;
+                height:16px;
+                margin-left:10px;
+                vertical-align:-2px;
+            }
+            #wrap .ee .fan{
+                position:absolute;
+                right:10px;
+                top:50%;
+                margin-top:-30px;
+            }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="ee"><input type="checkbox"checked id="box1"><label for="box1">你爱玩</lable></div>
+        <div class="ee"><input type="checkbox" id="box2"><label for="box2">你爱玩</lable></div>
+        <div class="ee"><input type="checkbox" id="box3"><label for="box3">驱蚊器无</lable></div>
+        <div class="ee"><input type="checkbox" id="box4"><label for="box4">人</lable></div>
+        <div class="ee"><input type="checkbox" id="box5"><label for="box5">温热</lable></div>
+        <br><br><br><br><br><br><br><br>
+        <div class="ee">
+            <input type="checkbox" id="box6">
+            <label for="box6">全选</lable>
+            <div class="fan">
+                <input type="checkbox" id="box7">
+                <label for="box7">反选</lable>
+            </div>
+        </div>       
+    </div>
+</body>
+<script>
+    //获取元素
+                let oBox6 = document.getElementById("box6"),
+                    aInp = document.querySelectorAll("#wrap .ee>input"),
+                    oFan = document.getElementById("box7"),
+                    num = 1,
+                    len = aInp.length-1;
+                oBox6.onchange = function(){//全选被改变后 所有的input也改变
+                    // if(this.checked){//如果真(就是被勾选)
+                    //     for(let i=0;i<len;i++){
+                    //         aInp[i].checked = true;
+                    //     }
+                    // }
+                    // else{
+                    //     for(let i=0;i<len;i++){
+                    //         aInp[i].checked = false;
+                    //     }
+                        
+                    // }
+                    for(let i=0;i<len;i++){
+                      let a = this.checked?true:false;
+                      aInp[i].checked = a;
+                    }
+                }
+
+
+                for(let i=0;i<len;i++){
+                    aInp[i].onchange = function(){
+                        if(this.checked){
+                            num++
+                        }
+                        else{
+                            num--
+                        }
+                        oBox6.checked = num===len;
+                    }
+                }
+                oFan.onchange = function(){//哈哈
+                    if(this.checked){
+                        for(let i=0;i<len;i++){
+                        let b = aInp[i].checked?false:true;
+                        aInp[i].checked = b;
+                        }
+                    }
+                   
+                }
+</script>
+</html>

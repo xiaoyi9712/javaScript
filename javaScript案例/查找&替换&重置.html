@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+                margin:0;
+            }
+            ul{
+                padding-left:0;
+                list-style-type:none;
+            }
+            a{
+                text-decoration:none;
+                color: #222;
+            }
+            /* input{
+                margin:0;
+                padding:0;
+                outline:none;/*和border一样的写法*/
+                /* border:none;
+            }  */
+            .clearfix:after{
+                content:".";
+                font-size:0;
+                height:0;
+                display:block;
+                overflow:hidden;
+                clear:both;
+            }/*样式初始化*/
+            #wrap{
+                width:640px;
+                margin:50px auto 0;
+                border:1px solid #ccc;
+                border-radius:10px;
+            }
+            #wrap .top{
+                width:600px;
+                height:40px;
+                padding-top:30px;
+                margin:0 auto;
+            }
+            #wrap .top input{
+                margin:0 5px;
+            }
+            #wrap .top input[type=text]{
+                width:180px;
+                height:35px;
+            }
+            #wrap .top input[type=button]{
+                width:50px;
+                height:40px;
+            }
+            #wrap .bottom p{
+                margin:50px 10px;
+                line-height:35px;
+                text-indent:2em;
+            }
+            #wrap .bottom p b{
+                color:aqua;
+            }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="top">
+            <input type="text" placeholder="搜索内容">
+            <input type="button" value="查找">
+            <input type="text" placeholder="替换内容">
+            <input type="button" value="替换">
+            <input type="button" value="重置">
+        </div>
+        <div class="bottom">
+            <p>督学到学校视察，见教室里有个地球仪，就问学生甲：“你说说看，这地球仪为什么会倾斜23．5度呢？”学生甲惶恐地答：“不是我弄歪的。”督学摇摇头，转问学生乙。学生乙双手一摊，说：“您也看见，我是刚刚才进来的。”督学疑惑地询问老师，老师抱歉地说：“不能怪他们，这地球仪买回来时就这样了。”督学脸色愈来愈难看。这时，校长赶紧解释：“学校经费有限，这是在地摊上买的。”
+            </p>
+        </div>
+    </div>
+    <script>
+        //获取元素
+        let aInp = document.querySelectorAll("#wrap .top input"),
+            oBot = document.querySelector("#wrap .bottom"),
+            oBHTML = oBot.innerHTML
+        ;
+        
+        
+        
+        //查找被点击
+        aInp[1].onclick = function(){
+            let val = aInp[0].value;
+            if(!val)return;
+            let arr = oBHTML.split(val);
+            let newHTML = arr.join("<b>"+val+"</b>");
+            oBot.innerHTML = newHTML;
+
+        }
+        //替换被点击
+        aInp[3].onclick = function(){
+            let val1 = aInp[0].value;
+            let val2 = aInp[2].value;
+            if(!(val1&&val2))return;
+            let arr = oBHTML.split(val1);
+            let newHTML = arr.join("<b>"+val2+"</b>");
+            oBot.innerHTML = newHTML;
+            oBHTML = arr.join(val2);
+
+        }
+        //重置被点击
+        aInp[4].onclick = function(){
+            aInp[0].value = aInp[2].value = "";
+            oBot.innerHTML = oBHTML;
+        }
+        
+        
+    </script>
+</body>
+</html>

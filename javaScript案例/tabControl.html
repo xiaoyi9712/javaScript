@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }/*样式初始化*/
+        #wrap{
+            width:432px;
+            height:240px;
+            margin:50px auto;
+            user-select: none;
+        }
+        #wrap .left-tab{
+            float:left;
+            width:100px;
+            height:100%;
+        }
+        #wrap .left-tab .list{
+            width:100%;
+            height:100%;
+        }
+        #wrap .left-tab .list>li{
+            width:100%;
+            height:30px;
+            margin-bottom:1px;
+            text-align: center;
+            line-height:30px;
+            background-color:black;
+            color:#fff;
+            cursor:pointer;
+        }
+        #wrap .left-tab .list>li.on{
+            background-color:#f60;
+        }
+        #wrap .content{
+            float:right;
+            width:330px;
+            height:100%;
+        }
+        #wrap .content .right{
+            display:none;
+            position:relative;
+            width:100%;
+            height:100%;
+        }
+        #wrap .content .right.on{
+            display:block;
+        }
+        #wrap .content .right .img{
+            position:relative;
+            width:100%;
+            height:100%;
+        }
+        #wrap .content .right img{
+            width:330px;
+            height:240px;
+        }
+        #wrap .content .right .img>li{
+            display:none;
+            position:absolute;
+            width:100%;
+            height:100%;
+        }
+        #wrap .content .right .img>li.on{
+            display:block;
+        }
+        #wrap .content .right .bott-tab{
+            position:absolute;
+            top:200px;
+            left:10px;
+            width:100%;
+            height:30px;
+        }
+        #wrap .content .right .bott-tab>li{
+            float:left;
+            height: 30px;
+            width:30px;
+            margin-right:1px;
+            background-color: black;
+            text-align: center;
+            line-height:30px;
+            color:#fff;
+        }
+        #wrap .content .right .bott-tab>li.on{
+            background-color:#f60;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="left-tab"><!--左侧tab按钮-->
+            <ul class="list">
+                <li class= "on">豪车</li>
+                <li>美食</li>
+                <li>美女风景</li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="right on"><!--右侧豪车-->
+                <ul class="img"><!--右侧img-->
+                    <li class="on"><img src="./kaimages/1.jpg" alt=""></li>
+                    <li><img src="./kaimages./2.jpg" alt=""></li>
+                    <li><img src="./kaimages./3.jpg" alt=""></li>
+                    <li><img src="./kaimages./4.jpg" alt=""></li>
+                </ul>
+                <ul class="bott-tab"><!--右侧豪车下面tab按钮-->
+                    <li class="on">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+            </div>
+            <div class="right"><!--右侧美食-->
+                <ul class="img">
+                    <li class="on"><img src="./kaimages./m1.jpg" alt=""></li>
+                    <li><img src="./kaimages./m2.jpg" alt=""></li>
+                    <li><img src="./kaimages./m3.jpg" alt=""></li>
+                    <li><img src="./kaimages./m4.jpg" alt=""></li>
+                    <li><img src="./kaimages./m5.jpg" alt=""></li>
+                </ul>
+                <ul class="bott-tab">
+                    <li class="on">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="img">
+                    <li class="on"><img src="./kaimages./a1.jpg" alt=""></li>
+                    <li><img src="./kaimages./a2.jpg" alt=""></li>
+                    <li><img src="./kaimages./a3.jpg" alt=""></li>
+                    <li><img src="./kaimages./a4.jpg" alt=""></li>
+                    <li><img src="./kaimages./a5.jpg" alt=""></li>
+                </ul>
+                <ul class="bott-tab">
+                    <li class="on">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </ul>
+             </div>
+        </div>
+    </div>
+    <script>
+            (function(){
+                //获取元素
+               //获取元素...
+             let aFli = document.querySelectorAll("#wrap .left-tab .list>li"),//获取左侧tab的li;
+                len = aFli.length,//获取左侧list的长度
+                index = 0,//当前显示的
+                aImg = document.querySelectorAll("#wrap .content .right .img"),
+                aBtn = document.querySelectorAll("#wrap .content .right .bott-tab"),
+                aRight = document.querySelectorAll("#wrap .content .right"),//获取3个right
+                rightindex = 0;//记录右侧点击的第几个
+
+            ;
+            for(let i=0;i<len;i++){
+                aFli[i].onclick = function(){//左侧tab点击后右侧对应right显示
+                    removeClassname(index,rightindex)
+                    if(index===i)return;
+                    aFli[index].className = "";
+                    aRight[index].className = "right"
+                    index = i;
+                    aFli[i].className = "on";
+                    aRight[i].className = "right on"
+                    a(index);
+                }
+            }
+            a(0);
+            function a(i){
+                let aBtnli = aBtn[i].querySelectorAll("li"),
+                    aImgli = aImg[i].querySelectorAll("li"),
+                    index1 = 0,
+                    len1 = aImgli.length;
+                 for(let j=0;j<len1;j++){
+                    aBtnli[j].onclick = function(){
+                        if(index1 === j)return;
+                        aBtnli[index1].className = "";
+                        aImgli[index1].className = "";
+                        index1 = j;
+                        rightindex = j;
+                        aBtnli[index1].className = "on";
+                        aImgli[index1].className = "on";
+                    }
+                 }
+            }
+            function removeClassname(index,rightindex){
+                if(!rightindex) return;
+                let aBtnli = aBtn[index].querySelectorAll("li"),
+                    aImgli = aImg[index].querySelectorAll("li");
+                    aBtnli[rightindex].className = "";
+                    aImgli[rightindex].className = "";
+                    aBtnli[0].className = "on";
+                    aImgli[0].className = "on";
+
+            }
+
+
+            })();
+        </script>
+    </body>
+    </html>

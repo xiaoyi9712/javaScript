@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }/*样式初始化*/
+        #wrap{
+            width:430px;
+            height:240px;
+            margin:50px auto;
+        }
+        #wrap .content{
+            position:relative;
+            float:right;
+            width:330px;
+            height:100%
+        }
+        #wrap .content .right{
+            display:none;
+            width:100%;
+            height:100%;
+        }
+        #wrap .content .right.active{
+            display:block;
+        }
+        #wrap .content img{
+            width:330px;
+            height:240px;
+        }
+        #wrap .content .ok{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+        }
+        #wrap .content .ok li{
+            display:none;
+            position:absolute;
+            left:0;
+            top:0;
+        }
+        #wrap .content .on{
+            position:absolute;
+            margin:205px auto 5px 6px;
+            height:30px;
+        }
+        #wrap .content .on .ac{
+            background-color:#f60;
+        }
+        #wrap .content .on li{
+            float:left;
+            width:40px;
+            height:30px;
+            line-height:30px;
+            text-align:center;
+            color:#fff;
+            background-color:aqua;
+            margin-right:2px;
+            cursor:pointer;
+            user-select: none;
+        }
+        #wrap .tab{
+            float:left;
+            width:100px;
+            height:100%;
+            user-select:none;
+        }
+        #wrap .tab .list>li{
+            width:100%;
+            height:30px;
+            line-height:30px;
+            background-color:black;
+            font-size:14px;
+            text-align:center;
+            margin-bottom:1px;
+            color:#fff;
+            cursor:pointer;
+        }
+        #wrap .tab .list>.active{
+            background-color:#f60;
+        }
+        #wrap .content .ok .emm{
+            display:block;
+        }
+        /* 样式初始化 */
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="tab"><!--左侧tab按钮-->
+            <ul class="list">
+                <li class="active">豪车</li>
+                <li>美食</li>
+                <li>美女风景</li>
+            </ul>
+        </div>
+        <div class="content"><!--右边主体部分-->
+            <div class="right active">
+                <ul class="cat ok"><!--豪车li-->
+                    <li class="emm"><img src="./kaimages/1.jpg" alt="豪车" title="嗯,车" class="emm"></li>
+                    <li><img src="./kaimages/2.jpg" alt="豪车" title="嗯,车"></li>
+                    <li><img src="./kaimages/3.jpg" alt="豪车" title="嗯,车"></li>
+                    <li><img src="./kaimages/4.jpg" alt="豪车" title="嗯,车"></li>
+                </ul>
+                <ul class="bottab on"><!--豪车下tab按钮-->
+                    <li class="ac">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="food ok"><!--美食li-->
+                    <li class="emm"><img src="./kaimages/m1.jpg" alt="美食" title="嗯,美食" class="emm"></li>
+                    <li><img src="./kaimages/m2.jpg" alt="美食" title="嗯,美食"></li>
+                    <li><img src="./kaimages/m3.jpg" alt="美食" title="嗯,美食"></li>
+                    <li><img src="./kaimages/m4.jpg" alt="美食" title="嗯,美食"></li>
+                    <li><img src="./kaimages/m5.jpg" alt="美食" title="嗯,美食"></li>
+                </ul>
+                <ul class="food-tab on"><!--美食下tab按钮-->
+                    <li class="ac">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul class="butf ok"><!--美女风景li-->
+                    <li class="emm"><img src="./kaimages/a1.jpg" alt="妹子" title="嗯,妹子" class="emm"></li>
+                    <li><img src="./kaimages/a2.jpg" alt="妹子" title="嗯,妹子"></li>
+                    <li><img src="./kaimages/a3.jpg" alt="妹子" title="嗯,妹子"></li>
+                    <li><img src="./kaimages/a4.jpg" alt="妹子" title="嗯,妹子"></li>
+                    <li><img src="./kaimages/a5.jpg" alt="妹子" title="嗯,妹子"></li>
+                </ul>
+                <ul class="butf-tab on"><!--美女风景下tab按钮-->
+                    <li class="ac">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function(){
+            //获取元素
+            let aList = document.querySelectorAll("#wrap .tab .list>li"),//获取左侧tab按钮
+                index = 0,
+                len = aList.length;
+                for(i=0;i<len;i++){
+                    aList[i].onclick = function(){
+                        aList[index].className = "";
+                        aList[i].className = "active";
+                    }
+                }
+                console.log(aList)
+
+
+
+
+        })();
+    </script>
+</body>
+</html>

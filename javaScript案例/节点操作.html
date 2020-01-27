@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            width:100%;
+            height:600px;
+            background:linear-gradient(to bottom,#ccc 0%,red 100%);
+            user-select: none;
+        }
+        #wrap .content{
+            width:1000px;
+            height:500px;
+            margin:0 auto;
+            padding-top:100px;
+        }
+        #wrap .content .left,#wrap .content .right{
+            width:50%;
+            height:100%;
+        }
+        #wrap .content .left{
+            float:left;
+            background-color:#fff;
+        }
+        #wrap .content .right{
+            float:right;
+            background-color:rgba(0, 0, 0, .6)
+        }
+        #wrap .content .left .title{
+            margin:20px 0 20px 15px;
+            color:#f60;
+            font-size: 18px;
+        }
+        #wrap .content .left .title>span{
+            font-size:16px;
+            color:black;
+            margin-left:18px;
+        }
+        #wrap .content .left .title span:hover{
+            color:#f60;
+            cursor:pointer;
+        }
+        #wrap .content .left .quan{
+            margin:15px 0 0 15px;;
+        }
+        #wrap .content .left .quan>p{
+            float: left;
+            font-size:13px;
+            padding:10px;
+            margin:0 15px 15px 0;
+            border:1px solid #ccc;
+        }
+        #wrap .left .quan>p i:hover{
+            cursor:pointer;
+            color:#f60;
+        }
+        #content{
+            margin:50px 0 0 15px;
+        }
+        #content p{
+            float: left;
+            font-size:13px;
+            padding:10px;
+            margin:0 15px 15px 0;
+            border:1px solid #ccc;
+            color:#f60;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="content">
+            <div class="left">
+                <p class="title">
+                    热门目的地:
+                    <span>马来西亚</span>
+                    <span>泰国</span>
+                    <span>韩国</span>
+                    <span>日本</span>
+                    <span>美国</span>
+                </p>
+                <div class="quan">
+                    <!-- <p>马来西亚 | <i>x</i></p> 
+                    <p>马来西亚 | <i>x</i></p>
+                    <p>xinxilan | <i>x</i></p>
+                    <p>马来西亚 | <i>x</i></p>
+                    <p>马来西亚 | <i>x</i></p>
+                    <p>马来西亚 | <i>x</i></p> -->
+                </div>
+            </div>
+            <div class="right">
+                <div id="content">
+                    <!-- <p>马来西亚</p>
+                    <p>马来西亚</p>
+                    <p>马来西亚</p>
+                    <p>马来西亚</p>
+                    <p>马来西亚</p>
+                    <p>马来西亚</p>
+                    <p>马来西亚</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let aSpan = [...document.querySelectorAll("#wrap .left .title>span")],
+            oQuan = document.querySelector("#wrap .left .quan"),
+            oCont = document.getElementById("content"),
+            ifadd = []
+        ;
+        aSpan.forEach((ele,index)=>{
+            ele.onclick = function(){
+                //生成内容
+                if(ifadd[index])return
+                let html = this.innerHTML;
+                lef(html,index);
+                ifadd[index] = true;
+            }
+        })
+        //左侧生成
+        function lef(html,index){
+            let op = document.createElement("p"),
+                text = document.createTextNode(html+" | "),
+                oi = document.createElement("i");
+            oi.innerHTML = "x";
+            op.appendChild(text);
+            op.appendChild(oi);
+            oQuan.appendChild(op);
+
+
+            //右侧生成内容
+            let orp = document.createElement("p");
+            orp.innerHTML = html;
+            oCont.appendChild(orp);
+
+            //oi的点击清除
+            oi.onclick = function(){
+                oQuan.removeChild(op);
+                oCont.removeChild(orp);
+                 ifadd[index] = false
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+            <input type="text"v-model="msg">
+            <ul>
+                <li v-for = "(user,index) in filterUser">
+                    {{index}}--{{user.name}}--{{user.age}}
+                </li>
+            </ul>
+            <button @click="sortage(0)">年龄升序</button>
+            <button @click="sortage(1)">年龄降序</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                msg:"",
+                users:[
+                    {name:"jack",age:18},
+                    {name:"danny",age:25},
+                    {name:"ackk",age:31},
+                    {name:"afei",age:19}
+                ]
+            },
+            computed:{
+                filterUser(){
+                    return this.users.filter((user)=>{
+                        return user.name.includes(this.msg)//filter数组返回为真数组就会被留下来
+                    })
+                }
+            },
+            methods:{
+                sortage(num){
+                    this.users.sort((a,b)=>{
+                        if(num){
+                            return b.age - a.age
+                        }
+                        else{
+                            return a.age - b.age
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

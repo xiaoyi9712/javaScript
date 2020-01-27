@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            width:300px;
+            margin:50px 0 0 100px;
+            user-select: none;
+            cursor:pointer;
+            border:1px solid black;
+        }
+        #wrap .family{
+            width:100%;
+            margin-bottom:1px;
+        }
+        #wrap .family .friends{
+            width:100%;
+            height:60px;
+            text-indent:2em;
+            line-height:60px;
+            background-color:pink;
+        }
+        #wrap .family .list{
+            display:none;
+        }
+        #wrap .family .list.show{
+            display:block;
+        }
+        #wrap .family .list li{
+            width:100%;
+            height:45px;
+            text-indent:3em;
+            line-height:45px;
+            background-color:aqua;
+            margin-bottom:1px;
+            font-size:13px;
+        }
+        #wrap .family .list li:hover{
+            background-color:#ccc;
+            transition:.4s;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="family">
+            <p class="friends">朋友</p>
+            <ul class="list">
+                <li>小黑</li>
+                <li>小黄</li>
+                <li>小兰</li>
+            </ul>
+        </div>
+        <div class="family">
+            <p class="friends">同事</p>
+            <ul class="list">
+                <li>王刚</li>
+                <li>秦月</li>
+                <li>汉三</li>
+            </ul>
+        </div>
+        <div class="family">
+            <p class="friends">家人</p>
+            <ul class="list show">
+                <li>豆豆</li>
+                <li>花花</li>
+                <li>哞哞</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        //获取元素
+        let ap = document.querySelectorAll("#wrap .family .friends"),
+            aList = document.querySelectorAll("#wrap .family .list"),
+            len = ap.length;
+
+            for(let i=0;i<len;i++){
+                ap[i].onclick = function(){
+                    for(let j=0;j<len;j++){
+                        let arr = j===i?"add":"remove";
+                        aList[j].classList[arr]("show");
+                    }
+                }
+            }
+        // for(let i=0;i<len;i++){
+        //     ap[i].onclick = function(){
+        //         aList[i].classList.toggle("show");
+        //     }
+        // }
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LOL</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp{
+            user-select: none;
+            width:820px;
+            height:362px;
+            margin:20px auto 0;
+        }
+        #k{
+            position:relative;
+            width:100%;
+            height:340px;
+        }
+        #k .list{
+            position:relative;
+            width:100%;
+            height:340px;
+        }
+        #k .list>li{
+            display:none;
+            position:absolute;
+        }
+        #k .list .active{
+            display:block;
+        }
+        #k .play{
+            display:flex;
+            width:100%;
+            height:42px;
+            line-height:42px;
+            text-align:center;
+            font-size:14px;
+            color:#424242;
+        }
+        #k .play li{
+            width:20%;
+            background-color:#e3e2e2;
+        }
+        #k .play .show{
+            background-color:#f7f6f6;
+            color:#ab8e66;
+            border-bottom:2px solid #ab8e66;
+        }
+        #k .btn{
+            position:absolute;
+            top:47%;
+            width:40px;
+            height:50px;
+            background-color:#f60;
+            text-align:center;
+            font-size:14px;
+            line-height:50px;
+            color:#fff;
+            z-index:10;
+        }
+        #k .left{
+            left:0;
+        }
+        #k .right{
+            right:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="warp">
+        <div id="k">
+            <div class="btn left"><</div>
+            <div class="btn right">></div>
+            <ul class="list">
+                <li class="active"><img src="./LOLimages/1.jpg" alt=""></li>
+                <li><img src="./LOLimages/2.jpg" alt=""></li>
+                <li><img src="./LOLimages/3.jpg" alt=""></li>
+                <li><img src="./LOLimages/4.jpg" alt=""></li>
+                <li><img src="./LOLimages/5.jpg" alt=""></li>
+            </ul>
+            <ul class="play">
+                <li class="show">终极连击电玩一夏</li>
+                <li>电玩2019:终极连击</li>
+                <li>电玩2019门票</li>
+                <li>7月6日淘汰赛赛程</li>
+                <li>每周限时优惠</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        //获取元素
+        let oWarp = document.getElementById("warp"),
+            aList = document.querySelectorAll("#warp .list>li"),
+            aPlay = document.querySelectorAll("#warp .play>li"),
+            aa = document.querySelectorAll("#warp #k>div"),
+            aKL = aa.length,
+            aLen = aPlay.length,
+            xiao = 0;
+
+        function change(x){
+            aList[xiao].className = "";
+            aPlay[xiao].className = "";
+
+            xiao = x;
+
+            aList[xiao].className = "active";
+            aPlay[xiao].className = "show";
+        }
+        //点击事件1
+        for(let i=0;i<aLen;i++){
+            aPlay[i].onclick = function(){
+                if(xiao===i)return;
+                // aPlay[xiao].className = "";
+                // aList[xiao].className = "";
+                // xiao = i;
+                change(i);
+                // aPlay[xiao].className = "show";
+                // aList[xiao].className = "active";
+
+            }
+        }
+        //右按钮点击事件2
+            aa[1].onclick =function () {
+                    let x = xiao;
+                    x++;
+                    if(x>=aLen){
+                        x = 0
+                    }
+                    change(x);
+                    // aList[xiao].className = "";
+                    // aPlay[xiao].className = "";
+                    // xiao++
+                    // if(xiao>=aLen){
+                    //     xiao = 0
+                    // }
+                    // aList[xiao].className = "active";
+                    // aPlay[xiao].className = "show";
+            }
+        //左按钮点击事件
+            aa[0].onclick =function () {
+                    let x = xiao;
+                    x--;
+                    if(x<0){
+                        x = aLen-1
+                    }
+                    change(x);
+                    // aList[xiao].className = "";
+                    // aPlay[xiao].className = "";
+                    // xiao--
+                    // if(xiao<0){
+                    //     xiao = aLen-1
+                    // }
+                    // aList[xiao].className = "active";
+                    // aPlay[xiao].className = "show";
+            }
+    </script>
+</body>
+</html>

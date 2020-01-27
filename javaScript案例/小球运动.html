@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            position:relative;
+            width:500px;
+            height:500px;
+            margin:50px auto 0;
+            border:1px solid red;
+            border-radius:50%;
+        }
+        /* #wrap div{
+            position:absolute;
+            top:0;
+            left:0;
+            width:500px;
+            height:500px;
+        } */
+        #wrap span{
+            position:absolute;
+            top:-5px;
+            left:245px;
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            background-color:pink;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <span></span>
+        <!-- <div></div> -->
+    </div>
+    <script>
+        (function(){
+            let ospan = document.querySelector("#wrap span"),
+                owrap = document.getElementById("wrap"),
+                odiv = document.querySelector("#wrap div"),
+                deg = 90,
+                r = 250;
+            function randomcolor(){//RGB随机颜色
+                let r = Math.floor(Math.random()*256),
+                    g = Math.floor(Math.random()*256),
+                    b = Math.floor(Math.random()*256);
+                return `rgb(${r},${g},${b})`;
+            }
+
+            function m (){
+                    deg--
+                    r-=0.1
+                let ran = deg/360*Math.PI*2,
+                    x = Math.cos(ran)*r,
+                    y = Math.sin(ran)*r,
+                    left = 245+x+"px",
+                    top = 245-y+"px";
+                ospan.style.left = left,
+                ospan.style.top = top;
+                owrap.innerHTML+=`<span style="background-color:${randomcolor()};left:${left};top:${top};opacity:.7;"></span>`
+                requestAnimationFrame(m);
+            }
+            requestAnimationFrame(m);
+        }())
+    </script>
+</body>
+</html>

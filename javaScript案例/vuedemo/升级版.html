@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>just do it</title>
+    <link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" 
+     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+     crossorigin="anonymous">
+     <style>
+         *{
+             margin:0;
+             padding:0;
+         }
+         #app{
+             width:1024px;
+             margin:0 auto;
+         }
+         .on{
+             color:#ccc;
+             text-decoration:line-through;
+         }
+         .ok{
+             display:inline-block;
+         }
+     </style>
+</head>
+<body>
+    <div id="app">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3>今天还有{{num}}件事情要做</h3>
+                <input type="text" v-model="msg"@keyup.13="fn">
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" @dblclick="updata(index)" v-for="(todo,index) in filterTodos">
+                        <div class="ok"  v-show="!todo.isdouble">
+                            <input type="checkbox"v-model="todo.isselect">
+                            <label :class="{on:todo.isselect}">{{todo.thing}}</label>
+                        </div>
+                        <input type="text"
+                         v-show="todo.isdouble"
+                         v-model="todo.thing"
+                         @keyup.13="blur(index)"
+                         @blur="blur(index)"
+                         v-focus="">
+                        <button @click="remove(index)" class="btn btn-xs pull-right btn-danger glyphicon glyphicon-remove-circle"></button>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <ul class="nav nav-pills">
+                    <li role="presentation" class="active"><a href="#all">所有任务</a></li>
+                    <li role="presentation"><a href="#finish">已完成</a></li>
+                    <li role="presentation"><a href="#unfinish">未完成</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script>
+        let vm = new Vue({
+            el:"#app",
+            data:{
+                msg:"",
+                hash:"all",
+                todos:[
+                    {isselect:false,thing:"看电影",isdouble:false},
+                    {isselect:false,thing:"健身",isdouble:false},
+                    {isselect:false,thing:"学习",isdouble:false},
+                    {isselect:false,thing:"吃饭",isdouble:false},
+                ],
+            },
+            watch:{
+                todos:{
+                    handler(){
+                        localStorage.setItem("todos",JSON.stringify(this.todos))//存储数据到本地名为"toods",转为字符串格式
+                    },
+                    deep:true,//深度监视todos的变化
+                }
+            },
+            methods:{
+                fn(){
+                    this.todos.push({
+                        isselect:false,thing:this.msg,isdouble:false
+                    });
+                    this.msg="";
+                },
+                remove(index){
+                    this.todos.splice(index,1)
+                },
+                updata(index){
+                    this.todos[index].isdouble=!this.todos[index].isdouble
+                },
+                blur(index){
+                    this.todos[index].isdouble=false;
+                },
+                add(num){
+                    if(num===0) {}
+                }
+            },
+            computed:{
+                num(){
+                    return this.todos.filter(todo=>!todo.isselect).length
+                },
+                filterTodos(){
+                    if(this.hash==="#finish")return this.todos.filter(todo=>todo.isselect);
+                    if(this.hash==="#unfinish")return this.todos.filter(todo=>!todo.isselect);
+                    return this.todos;
+                }
+            },
+            directives:{//自定义vue的绑定
+                focus(el){
+                    el.focus()
+                }
+            },
+            created(){//dom节点每次生成时都会触发
+                window.addEventListener("hashchange",()=>{
+                    this.hash = window.location.hash;
+                });
+                this.todos = JSON.parse(localStorage.getItem("todos"))||[]//让vue中的todos数据等于本地储存的名为"todos"的数据并转化成数组
+            }
+        })
+    </script>
+    <script>
+        let aLi = [...document.querySelectorAll("#app .nav-pills>li")],
+            num = 0;
+        ;
+        aLi.forEach=function(ele,index){
+            ele.onclick=function(){
+                aLi[num].classList.remove("active");
+                ele.classList.add("active");
+                num === index
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>九九乘法表</title>
+    <style>
+        body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #warp{
+            width:1000px;
+
+        }
+        #warp span{
+            display:inline-block;
+            width:80px;
+            height:50px;
+            background-color:aqua;
+            text-align:center;
+            line-height:50px;
+            margin:4px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="warp">
+        <!-- <span>4545</span>
+        <span>45</span> -->
+    </div>
+
+    <script>
+        let oWarp = document.getElementById("warp");
+        let s = "";
+        // for(let i=1;i<=9;i++){
+        //     let html = "";
+        //     for(let j=1;j<=i;j++){
+        //         html+="<span></span>";
+        //     }
+        //     oWarp.innerHTML +=html;
+        //     oWarp.innerHTML +="<br>";
+        // }
+        for(let i=1;i<=9;i++){
+            let xiaobai = "";
+            for(j=1;j<=i;j++){
+                xiaobai+=`<span>${i}*${j}=${i*j}</span>`;
+            }
+            xiaobai += "<br>";
+            s +=xiaobai;
+        }
+        s += "<hr>";
+
+        for(let i=1;i<=9;i++){
+            let xiaobai = "";
+            for(j=i;j<=9;j++){
+                xiaobai+=`<span>${i}*${j}=${i*j}</span>`;
+            }
+            xiaobai += "<br>";
+            s +=xiaobai;
+        }
+
+        oWarp.innerHTML += s;
+    </script>
+</body>
+</html>

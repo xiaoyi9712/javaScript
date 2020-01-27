@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+         body,p,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+        }
+        ul{
+            padding-left:0;
+            list-style-type:none;
+        }
+        a{
+            text-decoration:none;
+            color: #222;
+        }
+        input{
+            margin:0;
+            padding:0;
+            outline:none;/*和border一样的写法*/
+            border:none;
+        }
+        .clearfix:after{
+            content:".";
+            font-size:0;
+            height:0;
+            display:block;
+            overflow:hidden;
+            clear:both;
+        }
+        /* 样式初始化 */
+        #wrap{
+            position:relative;
+            width:880px;
+            height:720px;
+            border:1px solid #999;
+            margin:50px auto;
+            padding:20px 0 20px 20px;
+            user-select:none;
+        }
+        #wrap .list{
+            width:100%;
+            height:100%;
+        }
+        #wrap .list li{
+            position:relative;
+            float:left;
+            width:200px;
+            margin-right:20px;
+            height:320px;
+            margin-bottom:20px;
+        }
+        #wrap .list li img{
+            display:block;
+            width:100%;
+            height:90%;
+        }
+        #wrap .list li p{
+            width:100%;
+            height:10%;
+            line-height:32px;;
+            color:black;
+            font-size:14px;
+            background-color:cyan;
+        }
+        #wrap .list li span{
+            position:absolute;
+            right:0;
+            bottom:0;
+            width:60px;
+            height:32px;
+            background-color:cornflowerblue;
+            text-align: center;
+            line-height:32px;
+            color:cornsilk;
+        }
+        #wrap .btn{
+            position:absolute;
+            left:0;
+            bottom:0;
+            height:40px;
+            margin-left:587px;
+            margin-bottom:20px;
+        }
+        #wrap .btn span{
+            display:inline-block;
+            height:40px;
+            line-height:40px;
+            background-color:#f60;
+            color:#fff;
+            font-size:14px;
+            padding:0 10px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div class="content">
+            <ul class="list"></ul>
+        </div>
+        <div class="btn">
+            <span>随机排序</span>
+            <span>价格由低到高</span>
+            <span>价格由高到低</span>
+        </div>
+    </div>
+    <script>
+        (function(data){
+            //样式初始化
+            function createDom(ok){
+                let oUl = document.querySelector("#wrap .content .list"),
+                    html = ""
+                ;
+                data.forEach((ele)=>{
+                html += `
+                <li>
+                    <img src="${ele.src}">
+                    <p>${ele.phone}</p>
+                    <span>$${ele.price}</span>
+                </li>`;
+                })
+                oUl.innerHTML = html;
+            }
+            createDom(data);
+
+            //点击事件
+            (function(){
+                let aBtn = [...document.querySelectorAll("#wrap .btn span")],
+                    akl = [
+                        ()=>Math.random()-0.5,//随机好像不用参数,return>0或小鱼0就可以排序了
+                        (a,b)=>a.price - b.price,//不写大括号箭头后面的就是return(返回值)
+                        (a,b)=>b.price - a.price
+                    ]
+                ;
+                aBtn.forEach((ele,index)=>{
+                    ele.onclick = function(){
+                        data.sort(akl[index]);
+                        createDom(data);
+                    };
+                })
+            }())
+            
+            //数据库..
+        }([
+            {
+                src:"./1.jpg",
+                phone:"小米9",
+                price:"5543"
+            },
+            {
+                src:"./2.jpg",
+                phone:"小米8",
+                price:"3299"
+            },
+            {
+                src:"./3.jpg",
+                phone:"小米7",
+                price:"3203"
+            },
+            {
+                src:"./1.jpg",
+                phone:"小米6",
+                price:"8929"
+            },
+            {
+                src:"./2.jpg",
+                phone:"小米5",
+                price:"15.9"
+            },
+            {
+                src:"./3.jpg",
+                phone:"小米4",
+                price:"322"
+            },
+            {
+                src:"./1.jpg",
+                phone:"小米3",
+                price:"952"
+            },
+            {
+                src:"./2.jpg",
+                phone:"小米2",
+                price:"52"
+            },
+        ]))
+        /*              
+            switch的用法...
+                switch(index){
+                    case 0:
+                        data.sort((a,b)=>{
+                            return Math.random()-0.5;
+                            console.log(data);
+                            
+                        })
+                        break;
+                    case 1:
+                        data.sort((a,b)=>{
+                            return a.price - b.price
+                        })
+                        break;
+                    case 2:
+                        data.sort((a,b)=>{
+                            return b.price - a.price
+                        })
+                }
+                        
+        */
+    </script>
+</body>
+</html>
